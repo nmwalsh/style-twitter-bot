@@ -14,19 +14,22 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 def tweet_image(url, username, status_id):
-	input_path = '/Users/nwalsh/Dev/style-twitter-bot/'
+	# hard coded pwd
+	# input_path = '/Users/nwalsh/Dev/style-twitter-bot/'
+	input_path = '/home/datmo-team/projects/style-twitter-bot/'
 	input_filename = os.path.join(input_path, 'input_image.png')
 	#send get request
 	request = requests.get(url, stream=True)
 	if request.status_code == 200:
 		#read data from downloaded bytes
 		i = Image.open(BytesIO(request.content))
-		#save the ifilenamemage under a particular filename
+		#save the input image under a particular filename
 		i.save(input_filename)
-		#scramble(filename)
-		output_path = '/Users/nwalsh/Dev/style-twitter-bot/output_images/'
+		#hardcoded output directory
+		#output_path = '/Users/nwalsh/Dev/style-twitter-bot/output_images/'
+		output_path = '/home/datmo-team/projects/style-twitter-bot/output_images/'
 		output_filename = os.path.join(output_path, 'starry_night.jpg')
-		api.update_with_media(output_filename, status='@{0}Here\'s your painting!'.format(username), in_reply_to_status_id=status_id)
+		api.update_with_media(output_filename, status='@{0} Here\'s your painting!'.format(username), in_reply_to_status_id=status_id)
 
 	else:
 		print("Oh no, unable to download image!")
