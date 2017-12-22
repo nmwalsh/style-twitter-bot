@@ -1,7 +1,8 @@
 import tweepy
 import requests
 import os
-
+import subprocess
+import time
 from PIL import Image
 from PIL import ImageFile
 from io import BytesIO
@@ -25,14 +26,18 @@ def tweet_image(url, username, status_id):
 		i = Image.open(BytesIO(request.content))
 		#save the input image under a particular filename
 		i.save(input_filename)
+		#perform style transfer, defined in shell script
+		subprocess.call("/home/datmo-team/projects/style-twitter-bot/style_transfer.sh", shell=True)
+		#time.sleep(5)
 		#hardcoded output directory
 		#output_path = '/Users/nwalsh/Dev/style-twitter-bot/output_images/'
 		output_path = '/home/datmo-team/projects/style-twitter-bot/output_images/'
-		output_filename = os.path.join(output_path, 'starry_night.jpg')
+		output_filename = os.path.join(output_path, 'out.png')
 		api.update_with_media(output_filename, status='@{0} Here\'s your painting!'.format(username), in_reply_to_status_id=status_id)
 
 	else:
 		print("Oh no, unable to download image!")
+
 
 
 # BotStreamer class, inherit from Tweepy's StreamListener
