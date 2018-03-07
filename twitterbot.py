@@ -51,12 +51,14 @@ class BotStreamer(tweepy.StreamListener):
 			for image in status.entities['media']:
 				tweet_image(image['media_url'], username, status_id)
 
+myStreamListener = BotStreamer()
 
+stream = tweepy.Stream(auth, myStreamListener)
+stream.filter(track=['@StarryNightBot'])
 
-# stream = tweepy.Stream(auth, myStreamListener)
-# stream.filter(track=['@StarryNightBot'])
-
+"""
 # allow stream to restart itself on error or twitter API timeout
+
 def start_stream():
 	while True:
 		try:
@@ -68,3 +70,4 @@ def start_stream():
 			continue
 
 start_stream()
+"""
