@@ -53,6 +53,17 @@ class BotStreamer(tweepy.StreamListener):
 
 myStreamListener = BotStreamer()
 
-stream = tweepy.Stream(auth, myStreamListener)
-stream.filter(track=['@StarryNightBot'])
+# stream = tweepy.Stream(auth, myStreamListener)
+# stream.filter(track=['@StarryNightBot'])
 
+# allow stream to restart itself on error or twitter API timeout
+def start_stream():
+	while True:
+		try:
+			#test
+			stream = tweepy.Stream(auth, myStreamListener)
+			stream.filter(track=['@StarryNightBot'])
+		except:
+			continue
+
+start_stream()
