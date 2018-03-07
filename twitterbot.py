@@ -51,7 +51,7 @@ class BotStreamer(tweepy.StreamListener):
 			for image in status.entities['media']:
 				tweet_image(image['media_url'], username, status_id)
 
-myStreamListener = BotStreamer()
+
 
 # stream = tweepy.Stream(auth, myStreamListener)
 # stream.filter(track=['@StarryNightBot'])
@@ -61,6 +61,7 @@ def start_stream():
 	while True:
 		try:
 			#test
+			myStreamListener = BotStreamer()
 			stream = tweepy.Stream(auth, myStreamListener)
 			stream.filter(track=['@StarryNightBot'])
 		except:
